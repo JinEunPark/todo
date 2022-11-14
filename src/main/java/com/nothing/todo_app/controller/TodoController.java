@@ -20,36 +20,78 @@ public class TodoController {
     @Autowired
     private TodoService todoService;
 
-    @GetMapping("/test")
-    public ResponseEntity<?> testTodo(){
-        String str = todoService.testService();
-        List<String> list = new ArrayList<>();
-        list.add(str);
-        ResponseDTO<String> responseDTO = ResponseDTO.<String>builder().data(list).build();
+    @GetMapping
+    public ResponseEntity<?> retrieveTodoList() {
+        String temporaryUserId = "temporary-user";//임의의 아이디 생성
+        List<TodoEntity> entities = todoService.retrieve(temporaryUserId);
+        List<TodoDto> todoDtoList = entities.stream().map(TodoDto::new).collect(Collectors.toList());
+        ResponseDTO<TodoDto> responseDTO = ResponseDTO.<TodoDto>builder().data(todoDtoList).build();
         return ResponseEntity.ok().body(responseDTO);
     }
 
-    @PostMapping
-    public ResponseEntity<?> createTodo(@RequestBody TodoDto todoDto){
 
-        try{
-            String temporyUserId = "tempory-user";
+    @PutMapping
+    public ResponseEntity<?> updateTodo(@RequestBody TodoDto dto) {
+
+        String temporaryUserId = "temporary-user";
+        ;
+        TodoEntity todoEntity = TodoDto.toEntity(dto);
+
+        todoEntity.setUserId(temporaryUserId);
+        List<TodoEntity> todoEntities = todoService.update(todoEntity);
+
+        List<TodoDto> todoDtos = todoEntities.stream().map(TodoDto::new).collect(Collectors.toList());
+        ResponseDTO<TodoDto> responseDTO = ResponseDTO.<TodoDto>builder().data(todoDtos).build();
+
+        return ResponseEntity.ok().body(responseDTO);
+    }
+
+
+    @PostMapping
+    public ResponseEntity<?> createTodo(@RequestBody TodoDto todoDto) {//생성하기 위해서 사용한 postMapping
+
+        try {
+            String temporaryUserId = "temporary-user";//
 
             TodoEntity todoEntity = TodoDto.toEntity(todoDto);
             todoEntity.setId(null);
 
-            todoEntity.setUserId(temporyUserId);
+            todoEntity.setUserId(temporaryUserId);
 
             List<TodoEntity> todoEntities = todoService.create(todoEntity);
+
             List<TodoDto> todoDtos = todoEntities.stream().map(TodoDto::new).collect(Collectors.toList());
             ResponseDTO<TodoDto> responseDTO = ResponseDTO.<TodoDto>builder().data(todoDtos).build();
+
             return ResponseEntity.ok().body(responseDTO);
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
             String error = e.getMessage();
             ResponseDTO<TodoDto> responseDTO = ResponseDTO.<TodoDto>builder().error(error).build();
             return ResponseEntity.badRequest().body(responseDTO);
+        }
+
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteTodo(@RequestBody TodoDto todoDto) {
+        try {
+            String temporaryUserId = "temporary-user";//
+            TodoEntity todoEntity = TodoDto.toEntity(todoDto);
+            todoEntity.setUserId(temporaryUserId);
+            List<TodoEntity> entities = todoService.delete(todoEntity);
+            List<TodoDto> dtos = entities.stream().map(TodoDto::new).collect(Collectors.toList());
+
+            ResponseDTO<TodoDto> responseDTO = ResponseDTO.<TodoDto>builder().data(dtos).build();
+            return ResponseEntity.ok().body(responseDTO);
+
+        } catch (Exception e) {
+
+            String error = e.getMessage();
+            ResponseDTO<TodoDto> responseDTO = ResponseDTO.<TodoDto>builder().error(error).build();
+            return ResponseEntity.badRequest().body(responseDTO);
+
         }
 
     }

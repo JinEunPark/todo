@@ -21,7 +21,7 @@ public class GroupTodoEntity extends BaseEntity{
     @GenericGenerator(name="system-uuid",strategy="uuid")//문자열로 아이디 생성함.
     String groupId;
     String title;
-    @OneToMany
-    List<UserEntity> userEntities= new ArrayList<>();
+//    @OneToMany
+//    List<UserEntity> userEntities= new ArrayList<>();
 
 }
