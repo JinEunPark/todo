@@ -1,5 +1,6 @@
 package com.nothing.todo_app.model;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,8 +14,7 @@ import java.time.LocalDateTime;
 
 @EntityListeners(value={AuditingEntityListener.class})
 @MappedSuperclass
-@Getter
-@Setter
+@Data
 public abstract class BaseTimeEntity {
     @CreatedDate
     @Column

@@ -34,10 +34,12 @@ public class TodoController {
 
         try{
             String temporyUserId = "tempory-user";
+
             TodoEntity todoEntity = TodoDto.toEntity(todoDto);
             todoEntity.setId(null);
 
             todoEntity.setUserId(temporyUserId);
+
             List<TodoEntity> todoEntities = todoService.create(todoEntity);
             List<TodoDto> todoDtos = todoEntities.stream().map(TodoDto::new).collect(Collectors.toList());
             ResponseDTO<TodoDto> responseDTO = ResponseDTO.<TodoDto>builder().data(todoDtos).build();

@@ -15,17 +15,12 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "Todo")
-public class TodoEntity extends BaseEntity{
+public class TodoEntity extends BaseEntity {
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name="system-uuid",strategy="uuid")//문자열로 아이디 생성함.
-    private String id;
-
-    @ManyToOne(targetEntity = UserEntity.class, fetch = FetchType.LAZY)//fetch type lazy로 비동기적인 실행함.
-    @JoinColumn(name="user_id")
-    private String userId;
-    private String title;
-    private boolean done;
-
-
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    private String id; // 이 오브젝트의 아이디
+    private String userId; // 이 오브젝트를 생성한 유저의 아이디
+    private String title; // Todo 타이틀 예) 운동 하기
+    private boolean done; // true - todo를 완료한 경우(checked)
 }

@@ -14,6 +14,7 @@ public class TodoService {
     @Autowired
     private TodoRepository todoRepository;
 
+    //for the test json object
     public String testService(){
         TodoEntity todoEntity = TodoEntity.builder().title("first thing todo").build();
         todoRepository.save(todoEntity);
@@ -22,7 +23,7 @@ public class TodoService {
         return savedEntity.getTitle();
 
     }
-
+    //create List TodoEntity and return saved todo entity
     public List<TodoEntity> create(final TodoEntity todoEntity){
         validate(todoEntity );
 
@@ -31,6 +32,7 @@ public class TodoService {
         return todoRepository.findByUserId(todoEntity.getId());
     }
 
+    //todo object validation
     private void validate(final TodoEntity todoEntity){
         if(todoEntity == null){
             log.warn("entity cannot be null");

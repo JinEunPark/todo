@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data//이 어노테이션을 지정해야 serialize 가능하다.
+
 public class TodoDto {
 
     private String id;
@@ -22,6 +23,7 @@ public class TodoDto {
         this.title = entity.getTitle();
         this.done = entity.isDone();
     }
+
     public static ModelMapper modelMapper = new ModelMapper();
 
     public static TodoEntity toEntity(TodoDto todoDto){
