@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.GenericGenerator;
+import org.modelmapper.ModelMapper;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +23,9 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "username")})
+@Table
+//uniqueConstraints = {@UniqueConstraint(columnNames = "username")} 나중에 외부 키에 추가할 사항
+
 public class UserEntity extends BaseEntity{
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -37,4 +40,5 @@ public class UserEntity extends BaseEntity{
     private String role; // 유저의 롤. ex. 어드민, 일반유저
 
     private String authProvider; // example : facebook
+
 }

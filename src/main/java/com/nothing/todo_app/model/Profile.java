@@ -14,18 +14,17 @@ import javax.persistence.*;
 @Table
 @Slf4j
 @Entity
+//사용자 프로파일 entity 회워가입 할때 이 정보 받을 것
 public class Profile extends BaseEntity{
 
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name="system-uuid",strategy="uuid")//문자열로 아이디 생성함.
     String profileId;
-
-    @OneToOne
-    UserEntity userEntity;
+    String userId;
+    String name;
     String statusMessage;
     String phoneNumber;
-    String name;
     String userPhoto;
-
+    String userEmail;
 }
