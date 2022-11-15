@@ -25,6 +25,7 @@ public class TodoService {
         return savedEntity.getTitle();
 
     }
+
     //create List TodoEntity and return saved todo entity
     public List<TodoEntity> create(final TodoEntity todoEntity){
         validate(todoEntity);
@@ -34,11 +35,15 @@ public class TodoService {
         return todoRepository.findByUserId(todoEntity.getUserId());
         //findByUserId() 이니까 userId로 받을 것
     }
-
+    //get user's todoEntity for as a list
     public List<TodoEntity> retrieve(final String userId){//user 의 todo 목록을 반환함.
         return todoRepository.findByUserId(userId);
     }
 
+
+
+
+    //for the update dotoEntity in the todo repository
     public List<TodoEntity> update(final TodoEntity todoEntity){
 
         validate(todoEntity);
@@ -49,11 +54,11 @@ public class TodoService {
             todo.setTitle(todoEntity.getTitle());
             todo.setDone(todoEntity.isDone());
             todoRepository.save(todo);
-        } );
+        });
 
         return retrieve(todoEntity.getUserId());
     }
-
+    //for delete todoEntity
     public List<TodoEntity> delete(final TodoEntity todoEntity){
         try{
             todoRepository.delete(todoEntity);

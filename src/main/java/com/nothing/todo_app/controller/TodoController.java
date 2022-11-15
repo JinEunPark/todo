@@ -15,6 +15,9 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("todo")
+/*
+주석 달기 너무 싫어용
+ */
 public class TodoController {
 
     @Autowired
@@ -70,6 +73,7 @@ public class TodoController {
             String error = e.getMessage();
             ResponseDTO<TodoDto> responseDTO = ResponseDTO.<TodoDto>builder().error(error).build();
             return ResponseEntity.badRequest().body(responseDTO);
+
         }
 
     }
