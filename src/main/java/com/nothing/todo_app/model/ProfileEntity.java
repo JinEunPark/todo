@@ -1,6 +1,7 @@
 package com.nothing.todo_app.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,12 +11,13 @@ import javax.persistence.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Data
 @Table
 @Slf4j
 @Entity
 //사용자 프로파일 entity 회워가입 할때 이 정보 받을 것
-public class Profile extends BaseEntity{
+public class ProfileEntity extends BaseEntity{
 
     @Id
     @GeneratedValue(generator = "system-uuid")
