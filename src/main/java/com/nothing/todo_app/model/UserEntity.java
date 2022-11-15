@@ -7,7 +7,13 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +34,7 @@ public class UserEntity extends BaseEntity{
 
     private String password; // 패스워드.
 
-    private String role; // 유저의 롤.
+    private String role; // 유저의 롤. ex. 어드민, 일반유저
 
     private String authProvider; // example : facebook
 }
