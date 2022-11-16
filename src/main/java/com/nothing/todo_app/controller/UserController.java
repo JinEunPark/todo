@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /*UserController
 * 두가지 기능을 제공
@@ -29,6 +31,8 @@ public class UserController {
     @Autowired
     private TokenProvider tokenProvider;
 
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO){
         try{
@@ -38,7 +42,7 @@ public class UserController {
             // 요청을 이용해 저장할 유저 만들기
             UserEntity user = UserEntity.builder()
                     .username(userDTO.getUsername())
-                    .password(userDTO.getPassword())
+                    .password(passwordEncoder.encode(userDTO.getPassword()))
                     .build();
 
             // 서비스 이용해 리포지터리에 유저를 저장
@@ -61,7 +65,8 @@ public class UserController {
     public ResponseEntity<?> authenticate(@RequestBody UserDTO userDTO){
         UserEntity user = userService.getByCredentials(
                 userDTO.getUsername(),
-                userDTO.getPassword());
+                userDTO.getPassword(),
+                passwordEncoder);
 
         if(user != null){
             //토큰 생성
