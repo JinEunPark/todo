@@ -19,6 +19,8 @@ repositories {
 }
 
 dependencies {
+    //todo check this annotation processor!! this is for using file configuration class
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
     implementation 'org.modelmapper:modelmapper:2.4.2'
     implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'

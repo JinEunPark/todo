@@ -63,7 +63,7 @@ public class ProfileService {
         try{
             profileRepository.delete(profileEntity);
         }catch (Exception e){
-            log.error("error deleting profile");
+            log.error("error deleting profile ");
             throw new RuntimeException("error deleting profile"+profileEntity.getProfileId());
         }
 
